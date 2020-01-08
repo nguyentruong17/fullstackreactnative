@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, TextInput, StyleSheet} from 'react-native'
+import {View, TextInput, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types'; // this object instruct React to validate the props given to this component
 
 
 export default class SearchInput extends React.Component {
@@ -61,6 +62,15 @@ export default class SearchInput extends React.Component {
         )
     }
 
+}
+
+SearchInput.propTypes = {
+    onSubmit: PropTypes.func.isRequired, //specifying given onSubmit prop must be a function and it is required (not optional)
+    placeholder: PropTypes.string, //specifying the given placeholder prop must be a string
+};
+
+SearchInput.defaultProps = {
+    placeholder: '', //making the placeholder prop an optional one
 }
 
 const styles = StyleSheet.create({

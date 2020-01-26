@@ -1,4 +1,4 @@
-//src: https://raw.githubusercontent.com/nguyentruong17/fullstack-react-native-code/master/fullstack-react-native-code/time-tracking/utils/TimerUtils.js
+//src:https://github.com/TheKetan2/fullstack-react-native-code/blob/master/fullstack-react-native-code/time-tracking/utils/TimerUtils.js
 
 import uuidv4 from 'uuid/v4';
 

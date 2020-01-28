@@ -4,6 +4,8 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import EditibleTimer from './components/EditibleTimer';
 import ToggleableTimerForm from './components/ToggleableTimerForm';
 
+import { newTimer } from './utils/TimerUtils';
+
 import uuidv4 from 'uuid/v4';
 
 export default class App extends React.Component {
@@ -25,7 +27,15 @@ export default class App extends React.Component {
                 isRunning: false
             },
         ],
-    }
+    };
+    
+    handleCreateFormSubmit = timer => {
+        const { timers } = this.state;
+        this.setState({
+            timers: [newTimer(timer), ...timers],
+        });
+    };
+
     render () {
         const { timers } = this.state;
 
@@ -34,6 +44,7 @@ export default class App extends React.Component {
                 <View>
                     <ToggleableTimerForm
                         isOpen={false} //determine whether this displays '+' or the form
+                        onFormSubmit = {this.handleCreateFormSubmit}
                     />
                 </View>
                 <ScrollView style={styles.timerList}> 

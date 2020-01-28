@@ -29,7 +29,7 @@ export const newTimer = (attrs = {}) => {
     title: attrs.title || 'Timer',
     project: attrs.project || 'Project',
     id: uuidv4(),
-    elapsed: 0,
+    timeElapsed: 0,
     isRunning: false,
   };
 

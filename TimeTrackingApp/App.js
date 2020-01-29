@@ -92,7 +92,7 @@ export default class App extends React.Component {
     }
     */
 
-    toggleTimer = toggleTimerId => {
+    handleTimerToggle = toggleTimerId => {
         const { timers } = this.state;
         this.setState({
             timers: timers.map(timer => {
@@ -106,7 +106,7 @@ export default class App extends React.Component {
                 return timer;
             }),
         });
-    }
+    };
     
     
     componentDidMount() {
@@ -116,7 +116,7 @@ export default class App extends React.Component {
         // so that we can stop the interval at anypoint using clearInterval()
 
         //by doing this way, we have no way to guarantee that our timers will be updated every 1 sec,
-        // or when we quit the app, everything will be reset again
+        // or when we quit the app, everything will be 
         this.intervalId = setInterval(() => {
             const { timers } = this.state;
             this.setState({
@@ -161,7 +161,7 @@ export default class App extends React.Component {
                             onFormSubmit = {this.handleUpdateFormSubmit}
                             onTimerRemove = {this.handleTimerRemove}
                             //for stop or start
-                            onTogglePress = {this.toggleTimer}
+                            onTimerToggle = {this.handleTimerToggle}
                             //onTimerStart = {this.handleTimerStart}
                             //onTimerStop = {this.handleTimerStop}
                         />

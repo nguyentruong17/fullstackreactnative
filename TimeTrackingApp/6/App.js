@@ -53,13 +53,90 @@ export default class App extends React.Component {
         })
     };
 
-    handleTimerRemove = existingID => {
+    handleTimerRemove = removeTimerId => {
         const { timers } = this.state;
         this.setState({
-            timers: timers.filter(timer => timer.id !== existingID)
+            timers: timers.filter(timer => timer.id !== removeTimerId)
         })
+    };
+
+    /* //my solution here was not good...
+    handleTimerStart = (startTimerId) => {
+        const { timers } = this.state;
+        this.setState({
+            timers: timers.map(timer => {
+                if (timer.id === startTimerId) {
+                    return {
+                        ...timer,
+                        isRunning: true
+                    };
+                };
+                return timer;
+            }),
+        });
+    };
+
+    handleTimerStop = (stopTimerId) => {
+        const { timers } = this.state;
+        this.setState({
+            timers: timers.map(timer => {
+                if (timer.id === stopTimerId) {
+                    return {
+                        ...timer,
+                        isRunning: false
+                    };
+                };
+                return timer;
+            }),
+        });
+    }
+    */
+
+    toggleTimer = toggleTimerId => {
+        const { timers } = this.state;
+        this.setState({
+            timers: timers.map(timer => {
+                if (timer.id === toggleTimerId) {
+                    const { isRunning } = timer;
+                    return {
+                        ...timer,
+                        isRunning: !isRunning
+                    };
+                };
+                return timer;
+            }),
+        });
     }
     
+    
+    componentDidMount() {
+        const TIME_INTERVAL = 1000;
+
+        //capture the return value of setInterval() to the variable this.intervalId
+        // so that we can stop the interval at anypoint using clearInterval()
+
+        //by doing this way, we have no way to guarantee that our timers will be updated every 1 sec,
+        // or when we quit the app, everything will be 
+        this.intervalId = setInterval(() => {
+            const { timers } = this.state;
+            this.setState({
+                timers: timers.map(timer => {
+                    const { timeElapsed, isRunning } = timer;
+
+                    return {
+                        ...timer,
+                        timeElapsed: isRunning ? timeElapsed + TIME_INTERVAL : timeElapsed,
+                    };
+                })
+            });
+        }, TIME_INTERVAL);
+    };
+
+    //we want to clear the interval if the app component get deleted (unmount)
+    // in our app, however, app will never get unmounted
+    componentWillUnmount() {
+        clearInterval(this.intervalId)
+    };
 
     render () {
         const { timers } = this.state;
@@ -83,6 +160,10 @@ export default class App extends React.Component {
                             isRunning={isRunning}
                             onFormSubmit = {this.handleUpdateFormSubmit}
                             onTimerRemove = {this.handleTimerRemove}
+                            //for stop or start
+                            onTogglePress = {this.toggleTimer}
+                            //onTimerStart = {this.handleTimerStart}
+                            //onTimerStop = {this.handleTimerStop}
                         />
                         /*this is an array of EditableTimer components*/
                     ))}

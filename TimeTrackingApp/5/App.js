@@ -29,10 +29,10 @@ export default class App extends React.Component {
         ],
     };
     
-    handleCreateFormSubmit = newTimer => {
+    handleCreateFormSubmit = timer => {
         const { timers } = this.state;
         this.setState({
-            timers: [newTimer(newTimer), ...timers],
+            timers: [newTimer(timer), ...timers],
         });
     };
 

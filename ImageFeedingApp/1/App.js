@@ -1,19 +1,19 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import Card from './components/Card';
+import CardList from './components/CardList';
+
+const items = [
+    { id: 0, author: 'Bob Ross' },
+    { id: 1, author: 'Chuck Norris' },
+];
 
 export default class App extends React.Component {
     render () {
         return(
             <View style = {styles.container}>
-                <Card 
-                    fullName='Hanh Nguyen'
-                    linkText='Comments'
-                    onPressLinkText={()=>{
-                        console.log('Link Pressed!')
-                    }}
-                    image={{ uri: 'https://unsplash.it/600/600' }}
+                <CardList
+                    items={items}
                 />
             </View>    
             

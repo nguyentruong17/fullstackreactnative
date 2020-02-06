@@ -3,11 +3,11 @@ import { StyleSheet, ScrollView, Text, View } from 'react-native'; //should use 
 import PropTypes from 'prop-types';
 
 export default function CommentList({
-    items
+    comments
 }){
     return(
         <ScrollView>
-            {items.map((item, index) => (
+            {comments.map((item, index) => (
                 <View key={index} style={styles.comment}>
                     <Text>{item}</Text>
                 </View>)
@@ -18,7 +18,7 @@ export default function CommentList({
 }
 
 CommentList.propTypes = {
-    items: PropTypes.arrayOf(
+    comments: PropTypes.arrayOf(
         PropTypes.string
     ).isRequired
 };
@@ -30,6 +30,6 @@ const styles = {
         paddingRight: 20,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: 'rgba(0,0,0,0.05)',
-        },
+    },
 }
 

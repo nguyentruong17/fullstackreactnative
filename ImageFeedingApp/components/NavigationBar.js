@@ -12,7 +12,7 @@ export default function NavigationBar({
             <TouchableOpacity style={styles.linkText} onPress={onPressLinkText}>
                 <Text>{linkText}</Text>  
             </TouchableOpacity>
-            <Text style={styles.title} numberOfLine={1}>{title}</Text>
+            <Text style={styles.title}>{title}</Text>
         </View>
     )
 };
@@ -32,11 +32,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     linkText: {
         position: 'absolute',
         left: 10,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderColor: 'red'
     }
 })

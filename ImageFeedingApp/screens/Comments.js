@@ -7,10 +7,22 @@ import CommentInput from '../components/CommentInput';
 import CommentList from '../components/CommentList';
 
 export default class Comments extends React.Component{
+    static propTypes = {
+        style: ViewPropTypes.style,
+        comments: PropTypes.arrayOf(
+            PropTypes.string
+        ).isRequired,
+        onClose: PropTypes.func.isRequired,
+        onSubmitComment: PropTypes.func.isRequired
+    };
+    static defaulTypes = {
+        style: null,
+    };
     render(){
         const { style, comments, onClose, onSubmitComment } = this.props;
+        console.log(comments)
         return(
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={style}>
                 <NavigationBar
                     title='Comments'
                     linkText='Close'
@@ -20,7 +32,7 @@ export default class Comments extends React.Component{
                     onSubmitComment={onSubmitComment}
                 />
                 <CommentList
-                    items={comments}
+                    comments={comments}
                 />
             </SafeAreaView>
         )

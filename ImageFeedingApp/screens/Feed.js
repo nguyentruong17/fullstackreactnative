@@ -47,7 +47,6 @@ export default class Feed extends React.Component{
     render() {
         const { style, onSelectItem, idToCommentsMap } = this.props;
         const { loading, error, items } = this.state;
-        //console.log(onSelectItem)
 
         if (loading) {
             return( <ActivityIndicator size='large'/>)

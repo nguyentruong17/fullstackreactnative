@@ -20,7 +20,6 @@ export default class Comments extends React.Component{
     };
     render(){
         const { style, comments, onClose, onSubmitComment } = this.props;
-        console.log(comments)
         return(
             <SafeAreaView style={style}>
                 <NavigationBar

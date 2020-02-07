@@ -10,12 +10,11 @@ export default class App extends React.Component {
         selectedItemId: null,
         idToCommentsMap: {
             0: ['a0', 'b0', 'c0'],
-            1: ['a1', 'b1', 'c1']
+            1: ['a1', 'b1', 'c1', 'd1']
         }
     }
 
     handleSelectItem = id => {
-        console.log(`Id Selected: ${id}`)
         this.setState({
             showModal: true,
             selectedItemId: id
@@ -35,10 +34,15 @@ export default class App extends React.Component {
         this.setState({
             idToCommentsMap: {
                 ...idToCommentsMap,
+                
+                //when defining object literal, we can dynamically compute property names by 
+                //putting array brackets around the property name
+                //e.g: const name = 'foo'; const obj = { [name]: 'bar' };
+                
                 [selectedItemId]: [...commentsForId, submittedComment] 
+                
             }
         })
-        console.log(idToCommentsMap)
     }
 
     render () {

@@ -40,8 +40,6 @@ const styles = StyleSheet.create({
     linkText: {
         position: 'absolute',
         left: 10,
-        justifyContent: 'center',
-        borderColor: 'red',
-        borderWidth: 1
+        justifyContent: 'center'
     }
 })

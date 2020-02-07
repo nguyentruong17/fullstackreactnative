@@ -46,11 +46,16 @@ export default class CardList extends React.Component {
             <FlatList
                 data={items}
                 renderItem={this.renderItem}
+                
                 //keyExtractor prop helps to instruct FlatList uniquely identify items
                 // => FlatList determines when it needs to re-render items as they go in/out of the visible portion of the screen 
                 keyExtractor={item => item.id.toString()}
 
-
+                //FlatList will only re-render an item when the data prop changes or when scrolling. 
+                //In this case, we pass the items prop of CardList into the data prop of FlatList, 
+                //but our idToCommentsMap prop doesn’t cause the items array to change, so the FlatList
+                //won’t update when new comments are added. We can use the prop extraData of FlatList to inform
+                //the FlatList that it should monitor another source of input data for changes.
                 extraData={idToCommentsMap}
             />
         )

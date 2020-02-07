@@ -27,6 +27,3 @@ CommentCard.propTypes = {
     onPressLinkText: PropTypes.func.isRequired
 };
 
-const styles = StyleSheet.create({
-    
-})

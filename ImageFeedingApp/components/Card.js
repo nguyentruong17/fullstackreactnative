@@ -9,10 +9,6 @@ export default class Card extends React.Component {
         fullName: PropTypes.string.isRequired,
         linkText: PropTypes.string.isRequired,
         onPressLinkText: PropTypes.func.isRequired,
-        imageId: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number
-        ]).isRequired,
         image: Image.propTypes.source.isRequired
     }
 
@@ -25,7 +21,7 @@ export default class Card extends React.Component {
     }
 
     render() {
-        const { fullName, linkText, onPressLinkText, imageId, image } = this.props;
+        const { fullName, linkText, onPressLinkText, image } = this.props;
         const { loading } = this.state;
 
         return (
@@ -34,7 +30,6 @@ export default class Card extends React.Component {
                 <ImageInfoRow 
                     fullName={fullName}
                     linkText={linkText}
-                    imageId = {imageId}
                     onPressLinkText={onPressLinkText}
                 />
                 <View style={styles.image}>

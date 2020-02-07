@@ -32,8 +32,7 @@ export default class CardList extends React.Component {
             <Card
                 fullName={author}
                 linkText={idToCommentsMap[id] ? `${idToCommentsMap[id].length} comments`: 'Comment'}
-                onPressLinkText={onSelectItem}
-                imageId={id}
+                onPressLinkText={() =>  onSelectItem(id)}
                 image={
                     {uri: getImageFromId(id)}
                 }

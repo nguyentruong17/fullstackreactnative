@@ -1,18 +1,34 @@
 import React from 'react';
-import { StyleSheet, View, Modal } from 'react-native';
+import { StyleSheet, View, Modal, AsyncStorage, Alert } from 'react-native';
+//AsyncStorage will be removed in the future release of react-native
 
 import Feed from './screens/Feed';
 import Comments from './screens/Comments';
+
+const ASYNC_STORAGE_KEY = 'ASYNC_STORAGE_KEY';
 
 export default class App extends React.Component {
     state = {
         showModal: false,
         selectedItemId: null,
-        idToCommentsMap: {
-            0: ['a0', 'b0', 'c0'],
-            1: ['a1', 'b1', 'c1', 'd1']
+        idToCommentsMap: {}
+    };
+
+    async componentDidMount() {
+        try {
+            const idToCommentsMap = await AsyncStorage.getItem(ASYNC_STORAGE_KEY);
+            if (!!idToCommentsMap){
+                this.setState({
+                    idToCommentsMap: JSON.parse(idToCommentsMap)
+                })
+            }
+        } catch (e) {
+            Alert.alert(
+                'System Alert',
+                `Failed to load comments\n${e}`
+            )
         }
-    }
+    };
 
     handleSelectItem = id => {
         this.setState({
@@ -28,9 +44,9 @@ export default class App extends React.Component {
         })
     };
 
-    handleSubmitComment = (submittedComment) => {
+    handleSubmitComment = async (submittedComment) => {
         const { selectedItemId, idToCommentsMap } = this.state;
-        const commentsForId = idToCommentsMap[selectedItemId] || []
+        const commentsForId = idToCommentsMap[selectedItemId] || [];
         this.setState({
             idToCommentsMap: {
                 ...idToCommentsMap,
@@ -42,7 +58,16 @@ export default class App extends React.Component {
                 [selectedItemId]: [...commentsForId, submittedComment] 
                 
             }
-        })
+        });
+        
+        try {
+            await AsyncStorage.setItem(ASYNC_STORAGE_KEY, JSON.stringify(idToCommentsMap));
+        } catch (e) {
+            Alert.alert(
+                'System Alert',
+                `Failed to save comments\n${e}`
+            )
+        }
     }
 
     render () {

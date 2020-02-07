@@ -9,10 +9,10 @@ export default function NavigationBar({
 }){
     return(
         <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
             <TouchableOpacity style={styles.linkText} onPress={onPressLinkText}>
                 <Text>{linkText}</Text>  
             </TouchableOpacity>
-            <Text style={styles.title}>{title}</Text>
         </View>
     )
 };
@@ -28,16 +28,20 @@ const styles = StyleSheet.create({
         height: 40,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: 'rgba(0,0,0,0.4)',
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'stretch',
+        justifyContent: 'center'
     },
     title: {
         fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+        textAlignVertical: 'center'
     },
     linkText: {
         position: 'absolute',
         left: 10,
         justifyContent: 'center',
-        borderColor: 'red'
+        borderColor: 'red',
+        borderWidth: 1
     }
 })

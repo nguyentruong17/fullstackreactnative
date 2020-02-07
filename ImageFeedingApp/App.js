@@ -1,29 +1,68 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Modal } from 'react-native';
 
 import Feed from './screens/Feed';
 import Comments from './screens/Comments';
 
-const comments = ['a', 'b', 'c']
-
 export default class App extends React.Component {
+    state = {
+        showModal: false,
+        selectedItemId: null,
+        idToCommentsMap: {
+            0: ['a0', 'b0', 'c0'],
+            1: ['a1', 'b1', 'c1']
+        }
+    }
+
+    handleSelectItem = id => {
+        console.log(`Id Selected: ${id}`)
+        this.setState({
+            showModal: true,
+            selectedItemId: id
+        })
+    };
+
+    handleCloseCommentsScreen = () => {
+        this.setState({
+            showModal: false,
+            selectedItemId: null
+        })
+    };
+
+    handleSubmitComment = (submittedComment) => {
+        const { selectedItemId, idToCommentsMap } = this.state;
+        const commentsForId = idToCommentsMap[selectedItemId] || []
+        this.setState({
+            idToCommentsMap: {
+                ...idToCommentsMap,
+                [selectedItemId]: [...commentsForId, submittedComment] 
+            }
+        })
+        console.log(idToCommentsMap)
+    }
 
     render () {
+        const { showModal, selectedItemId, idToCommentsMap } = this.state;
         return(
             <View style = {styles.container}>
-                {/*<Feed
+                <Feed
                     style={styles.feed}
-                />*/}
-                <Comments
-                    style = {styles.comment}
-                    comments = {comments}
-                    onClose = {()=>{
-                        console.log('Close!')
-                    }}
-                    onSubmitComment={submittedComment =>{
-                        console.log(`Submit!\n${submittedComment}`)
-                    }}
+                    onSelectItem={this.handleSelectItem}
+                    idToCommentsMap = {idToCommentsMap}
                 />
+                <Modal 
+                    visible={showModal}
+                    animationType='slide'
+                    onRequestClose={this.handleCloseCommentsScreen}
+                >
+                    <Comments
+                        style = {styles.comment}
+                        id={selectedItemId}
+                        comments = {idToCommentsMap[selectedItemId] || []}
+                        onClose = {this.handleCloseCommentsScreen}
+                        onSubmitComment={this.handleSubmitComment}
+                    />
+                </Modal>                
             </View>    
             
         )

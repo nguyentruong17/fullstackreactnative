@@ -3,13 +3,16 @@ import { View, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 
 import ImageInfoRow from './ImageInfoRow';
-import NavigationBar from './NavigationBar'
 
 export default class Card extends React.Component {
     static propTypes = {
         fullName: PropTypes.string.isRequired,
         linkText: PropTypes.string.isRequired,
         onPressLinkText: PropTypes.func.isRequired,
+        imageId: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]).isRequired,
         image: Image.propTypes.source.isRequired
     }
 
@@ -20,13 +23,9 @@ export default class Card extends React.Component {
     handleLoad = () => {
         this.setState({ loading: false });
     }
-    //<ImageInfoRow 
-    //fullName={fullName}
-    //linkText={linkText}
-    //onPressLinkText={onPressLinkText}/>
-    //
+
     render() {
-        const { fullName, linkText, onPressLinkText, image } = this.props;
+        const { fullName, linkText, onPressLinkText, imageId, image } = this.props;
         const { loading } = this.state;
 
         return (
@@ -35,6 +34,7 @@ export default class Card extends React.Component {
                 <ImageInfoRow 
                     fullName={fullName}
                     linkText={linkText}
+                    imageId = {imageId}
                     onPressLinkText={onPressLinkText}
                 />
                 <View style={styles.image}>

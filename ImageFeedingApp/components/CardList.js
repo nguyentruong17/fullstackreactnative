@@ -14,6 +14,12 @@ export default class CardList extends React.Component {
                 author: PropTypes.string.isRequired
             })
         ).isRequired,
+        onSelectItem: PropTypes.func.isRequired,
+        idToCommentsMap: PropTypes.objectOf(
+            PropTypes.arrayOf(
+                PropTypes.string.isRequired
+            )
+        )
     };
     renderItem = ({ item: { id, author} }) => {
         //nested destructing, and is equivalent to 
@@ -21,13 +27,13 @@ export default class CardList extends React.Component {
         //      const id = obj.item.id
         //      const author = obj.item.author
         //
+        const { onSelectItem, idToCommentsMap } = this.props;
         return (
             <Card
                 fullName={author}
-                linkText='Comments'
-                onPressLinkText={()=>{
-                    console.log('Link Pressed!')
-                }}
+                linkText={idToCommentsMap[id] ? `${idToCommentsMap[id].length} comments`: 'Comment'}
+                onPressLinkText={onSelectItem}
+                imageId={id}
                 image={
                     {uri: getImageFromId(id)}
                 }
@@ -35,7 +41,7 @@ export default class CardList extends React.Component {
         )
     };
     render() {
-        const { items } = this.props;
+        const { items, idToCommentsMap } = this.props;
         return(
             <FlatList
                 data={items}
@@ -43,6 +49,9 @@ export default class CardList extends React.Component {
                 //keyExtractor prop helps to instruct FlatList uniquely identify items
                 // => FlatList determines when it needs to re-render items as they go in/out of the visible portion of the screen 
                 keyExtractor={item => item.id.toString()}
+
+
+                extraData={idToCommentsMap}
             />
         )
     }

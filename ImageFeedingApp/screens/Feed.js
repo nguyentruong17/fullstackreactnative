@@ -11,6 +11,12 @@ export default class Feed extends React.Component{
         //We cant use PropTypes.object to represent a style, but Styles created with StyleSheet.create are represented as numbers
         // Also, ViewPropTypes.style provides in-depth type-checking of each key and value, which is very valuable.
         style: ViewPropTypes.style,
+        onSelectItem: PropTypes.func,
+        idToCommentsMap: PropTypes.objectOf(
+            PropTypes.arrayOf(
+                PropTypes.string.isRequired
+            )
+        )
     };
 
     static defaultTypes = {
@@ -39,8 +45,9 @@ export default class Feed extends React.Component{
     }
 
     render() {
-        const { style } = this.props;
+        const { style, onSelectItem, idToCommentsMap } = this.props;
         const { loading, error, items } = this.state;
+        //console.log(onSelectItem)
 
         if (loading) {
             return( <ActivityIndicator size='large'/>)
@@ -52,7 +59,12 @@ export default class Feed extends React.Component{
 
         return(
             <SafeAreaView style={style}>
-                <CardList items={items}></CardList>
+                <CardList 
+                    items={items}
+                    onSelectItem={onSelectItem}
+                    idToCommentsMap={idToCommentsMap}
+                />
+
             </SafeAreaView>
         )
     }

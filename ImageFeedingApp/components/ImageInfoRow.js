@@ -8,12 +8,13 @@ import CommentCard from './CommentCard';
 export default function ImageInfoRow({
     fullName, 
     linkText,
+    imageId,
     onPressLinkText
 }){
     return(
         <View style={styles.container}>
             <AuthorCard fullName={fullName} style={styles.authorCard}/>
-            <CommentCard linkText={linkText} onPressLinkText={onPressLinkText}/>
+            <CommentCard linkText={linkText} imageId={imageId} onPressLinkText={onPressLinkText}/>
         </View>
     )
 
@@ -22,6 +23,10 @@ export default function ImageInfoRow({
 ImageInfoRow.propTypes = {
     fullName: PropTypes.string.isRequired,
     linkText: PropTypes.string.isRequired,
+    imageId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]).isRequired,
     onPressLinkText: PropTypes.func.isRequired
 };
 
